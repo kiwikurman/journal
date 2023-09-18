@@ -1,0 +1,7 @@
+1. add magic string for validating password
+   will it work for encryption too? adding encrypted magic 
+   string to make sure i'm using the regular password?
+
+2. would be nice to see **** when entering password.. not a must..
+
+
