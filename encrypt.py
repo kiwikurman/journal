@@ -60,3 +60,5 @@ if __name__ == '__main__':
     password = getpass.getpass("Enter password: ")
 
     encrypt_file(file_name, password)
+    os.remove(file_name)
+    
