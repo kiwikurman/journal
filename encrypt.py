@@ -6,6 +6,8 @@ import sys
 import hashlib  # This was missing in the original example for PBKDF2
 import getpass
 
+from decrypt import decrypt_file
+
 '''
 i want to make sure i didn't make a mistake with the password before encrypting,
 without writing the password in the code
@@ -13,6 +15,7 @@ so i want to compare the encrypted text with the given password
 to a previously encrypted magic_string with the same password
 there will be an issue with the random salt i think.. and it's less safe..
 '''
+
 
 def encrypt_file(file_name, password):
     # Read the file
@@ -50,6 +53,13 @@ def encrypt_file(file_name, password):
             f.write(x)
 
 
+def verify_password(p):
+    decrypt_file("magic.enc", p)
+    # i've written a whole function to check if the string in the file is as expected
+    # turns out encrypt is adding the magic string - and decrypt is looking for it.. so any string would do
+    # decrypt just terminates the whole script if the magic string doesn't match
+    # it makes brute force attack easier with clear pass/fail result.. but i'm ok with that
+
 if __name__ == '__main__':
     # Get the file name and password from the command line
     if len(sys.argv) != 2:
@@ -58,7 +68,6 @@ if __name__ == '__main__':
 
     file_name = sys.argv[1]
     password = getpass.getpass("Enter password: ")
-
+    verify_password(password)
     encrypt_file(file_name, password)
     os.remove(file_name)
-    
